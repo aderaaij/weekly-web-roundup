@@ -1,16 +1,16 @@
 module.exports = {
     meta: {
-        siteName: 'Gatsby Starter Skeleton',
+        siteName: 'Weekly Web Roundup',
         siteLogo: '/logo/logo_space.png',
         siteUrl: 'https://site.example.notatld', // No trailing slash!
-        siteTitle: 'Gatsby Starter Skeleton',
-        siteDescription: 'A starter skeleton for Gatsby',
+        siteTitle: 'Weekly Web Roundup',
+        siteDescription: 'A collection of amazing articles on webdevelopment, each week',
         siteLanguage: 'en_US',
         siteColor: '#ffffff',
     },
     // Typekit ID to autoload Typekit script in header.
     // Optional
-    typekitID: '',
+    typekitID: 'qru3ayc',
     // Where are your Favicons at?
     // Optional
     faviconDir: '/favicons',
