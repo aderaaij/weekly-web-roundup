@@ -17,7 +17,7 @@ const PostExcerpt = (props) => {
                 <Link to={path}>{title}</Link>
             </h2>
             <span>date: {date}</span>
-            <Img style={{ width: 250, height: 250 }} resolutions={cover.childImageSharp.resolutions} />
+            {/* <Img style={{ width: 250, height: 250 }} resolutions={cover.childImageSharp.resolutions} /> */}
             <p>{excerpt}</p>
             {(tags || date) &&
             <div>
