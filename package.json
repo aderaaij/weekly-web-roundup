@@ -26,6 +26,8 @@
     "lodash-webpack-plugin": "^0.11.4",
     "material-colors": "^1.2.5",
     "normalize.css": "^7.0.0",
+    "popmotion": "^8.1.8",
+    "popmotion-react": "^2.1.0",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
