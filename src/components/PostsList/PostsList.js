@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'react-emotion';
+
 import PostExcerpt from '../PostExcerpt/PostExcerpt';
+
+const ListWrap = styled.section`
+    grid-column-start: 2;
+    grid-column-end: 6;
+`;
 
 class PostsList extends React.Component {
     getPostList() {
@@ -39,9 +46,10 @@ class PostsList extends React.Component {
 
     render() {
         return (
-            <div>
+            <ListWrap>
+                <h2>Weekly Web roundups - 2018</h2>
                 {this.renderPostExcerpt()}
-            </div>
+            </ListWrap>
         );
     }
 }
