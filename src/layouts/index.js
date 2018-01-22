@@ -24,7 +24,7 @@ injectGlobal`
         font-family: ${fontScheme.headings};
         font-weight: 900;
         letter-spacing: -0.5px;
-        color: ${colorScheme.text};
+        color: ${colorScheme.support};
     }
 
     a {
@@ -37,14 +37,14 @@ injectGlobal`
 `;
 
 const TemplateWrapper = ({ children }) => (
-    <div style={{ padding: 20 }}>
+    <div>
         <Head />
-        <h1><Link to="/">{config.meta.siteTitle}</Link></h1>
+        {/* <h1><Link to="/">{config.meta.siteTitle}</Link></h1>
         <nav>
             <ul>
                 <li><Link to="/posts">Posts</Link></li>
             </ul>
-        </nav>
+        </nav> */}
         {children()}
     </div>
 );
