@@ -15,7 +15,7 @@ injectGlobal`
     }
 
     body {
-        font-family: ${fontScheme.text};
+        font-family: ${fontScheme.headings};
         background: white;
         border-top: 6px solid ${colorScheme.support}
     }
