@@ -18,7 +18,7 @@ const BlogPost = (props) => {
             </Helmet>
             }
             <h1>{frontmatter.title}</h1>
-            <Img sizes={frontmatter.cover.childImageSharp.sizes} />
+            {/* <Img sizes={frontmatter.cover.childImageSharp.sizes} /> */}
             <div dangerouslySetInnerHTML={{ __html: html }} />
         </article>
     );
