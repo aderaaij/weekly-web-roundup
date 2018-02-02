@@ -8,6 +8,7 @@ import PostExcerpt from '../PostExcerpt/PostExcerpt';
 const ListWrap = styled.section`
     grid-column-start: 2;
     grid-column-end: 6;
+    display: none;
 `;
 
 const Header = styled.h2`
@@ -24,7 +25,7 @@ class PostsList extends React.Component {
     getPostList() {
         const postList = [];
         const { edges } = this.props;
-        edges.forEach((postEdge) => {
+        edges.forEach(postEdge => {
             postList.push({
                 published: postEdge.node.frontmatter.published,
                 path: postEdge.node.fields.slug,
@@ -45,7 +46,7 @@ class PostsList extends React.Component {
      * */
     renderPostExcerpt() {
         const postList = this.getPostList();
-        return postList.map((post) => {
+        return postList.map(post => {
             if (process.env.NODE_ENV === 'production' && post.published) {
                 return <PostExcerpt key={post.title} postInfo={post} />;
             } else if (process.env.NODE_ENV === 'development') {
