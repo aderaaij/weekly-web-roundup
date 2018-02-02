@@ -1,12 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'react-emotion';
+import mc from 'material-colors';
 
 import PostExcerpt from '../PostExcerpt/PostExcerpt';
 
 const ListWrap = styled.section`
     grid-column-start: 2;
     grid-column-end: 6;
+`;
+
+const Header = styled.h2`
+    font-size: 3em;
+    text-transform: uppercase;
+    text-align: center;
+    border-bottom: 1px solid ${mc.pink[500]};
+    padding-bottom: 1em;
+    margin: 0 0 1.5em;
+    line-height: 1;
 `;
 
 class PostsList extends React.Component {
@@ -47,7 +58,7 @@ class PostsList extends React.Component {
     render() {
         return (
             <ListWrap>
-                <h2>Weekly Web roundups - 2018</h2>
+                <Header>2018</Header>
                 {this.renderPostExcerpt()}
             </ListWrap>
         );
