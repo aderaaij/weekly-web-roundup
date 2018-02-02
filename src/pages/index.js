@@ -1,14 +1,11 @@
 import React, { Component } from 'react';
-import { tween, spring, svg, stagger, easing } from 'popmotion';
-import mc from 'material-colors';
-import { css } from 'emotion';
+import { spring, svg, stagger } from 'popmotion';
 import styled from 'react-emotion';
 
 import SubscribeForm from '../components/SubscribeForm/SubscribeForm';
 import SEO from '../components/SEO/SEO';
 import HomeHero from '../components/Home/HomeHero';
 import PostsList from '../components/PostsList/PostsList';
-import config from '../../site-config/';
 
 const Container = styled.section`
     display: grid;
@@ -19,7 +16,7 @@ const Subscribe = styled.section`
     grid-column-start: 2;
     grid-column-end: 6;
     background: #fff;
-    margin-top: -50px;
+    margin: -50px 0 4em 0;
     padding: 1em 0;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -48,10 +45,6 @@ const SubscribeRSS = styled.div`
     }
 `;
 
-const PostExcerpt = styled.article`
-    width: 100%;
-`;
-
 const iconRSSTween = (icon) => {
     const paths = Array
         .from(icon.children)
@@ -73,18 +66,19 @@ const iconRSSTween = (icon) => {
 class Home extends Component {
     constructor(props) {
         super(props);
-        this.state = { value: '' };
-        this.handleChange = this.handleChange.bind(this);
+        this.state = {
+            headerLoaded: false,
+        };
     }
-
     componentDidMount() {
         iconRSSTween(this.iconRSS);
-        // .then(iconRSSTween(this.iconRSS))
-        // .catch(err => console.error(err));
     }
 
-    handleChange(event) {
-        this.setState({ value: event.target.value });
+    changeHandler() {
+        console.log('change?');
+        this.setState({
+            headerLoaded: true,
+        });
     }
 
     render() {
@@ -92,7 +86,7 @@ class Home extends Component {
         return (
             <div>
                 <SEO />
-                <HomeHero />
+                <HomeHero onChange={this.changeHandler} />
                 <Container>
                     <Subscribe>
                         <SubscribeRSS>
