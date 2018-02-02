@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'react-emotion';
 import mc from 'material-colors';
 import { tween, svg, easing, stagger, styler } from 'popmotion';
 import { css } from 'emotion';
 
 const Hero = styled.div`
-    height: 60vh;
-    min-height: 400px;
+    padding: 5em 0;
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     background: ${mc.blueGrey[50]};
@@ -67,7 +67,6 @@ const homeLogoTween = logo =>
                     pathStyler.set(v);
                 },
                 complete: () => {
-                    console.log('complete');
                     resolve();
                 },
             });
@@ -76,31 +75,35 @@ const homeLogoTween = logo =>
         }
     });
 
-const homeTitlesTween = heroTitleWrap => {
-    const titles = Array.from(heroTitleWrap.childNodes).map(styler);
-    const animations = Array(titles.length).fill(
-        tween({
-            from: { opacity: 0, y: 50 },
-            to: { opacity: 1, y: 0 },
-            ease: easing.backOut,
-        })
-    );
-    const anim = () => {
-        stagger(animations, 300).start(v =>
-            v.forEach((x, i) => titles[i].set(x))
+const homeTitlesTween = heroTitleWrap =>
+    new Promise(resolve => {
+        const titles = Array.from(heroTitleWrap.childNodes).map(styler);
+        const animations = Array(titles.length).fill(
+            tween({
+                from: { opacity: 0, y: 50 },
+                to: { opacity: 1, y: 0 },
+                ease: easing.backOut,
+            })
         );
-    };
-    return anim;
-};
+
+        stagger(animations, 300).start({
+            update: v => v.forEach((x, i) => titles[i].set(x)),
+            complete: () => {
+                resolve();
+            },
+        });
+    });
 
 class HomeHero extends Component {
     componentDidMount() {
+        const { onHeaderComplete } = this.props;
         homeLogoTween(this.heroLogo)
-            .then(homeTitlesTween(this.heroTitleWrap))
+            .then(() => homeTitlesTween(this.heroTitleWrap))
+            .then(() => onHeaderComplete())
             .catch(err => console.log(err));
     }
+
     render() {
-        console.log(this.props);
         return (
             <Hero>
                 <HeroHeader>
@@ -139,5 +142,9 @@ class HomeHero extends Component {
         );
     }
 }
+
+HomeHero.propTypes = {
+    onHeaderComplete: PropTypes.func.isRequired,
+};
 
 export default HomeHero;
