@@ -1,6 +1,5 @@
-import React, { Component } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
-import Img from 'gatsby-image';
 import Link, { navigateTo } from 'gatsby-link';
 import styled from 'react-emotion';
 import mc from 'material-colors';
@@ -9,19 +8,23 @@ import { css } from 'emotion';
 const Article = styled.article`
     display: grid;
     display: flex;
-`;
+    margin: 0 0 2em;
+    box-shadow: 
+        0 1px 3px rgba(0,0,0,0.12),
+        0 1px 2px rgba(0,0,0,0.24);
+    transition: box-shadow 0.3s ease;
+    cursor: pointer;
 
-const WeekIcon = styled.div`
-    position: relative;
-    display: flex;
-    height: 100%;
-    width: 200px;
-    flex-direction: column;
-    text-align: center;
+    &:hover {
+        box-shadow: 
+            0 3px 6px rgba(0,0,0,0.16),
+            0 3px 6px rgba(0,0,0,0.23);
+    }
 `;
 
 const articleContent = css`
-    padding: 0 1em;
+    padding: 1em;
+    max-width: 65ch;
 
     h2 {
         margin: 0;
@@ -32,6 +35,19 @@ const articleContent = css`
             text-decoration: none;
         }
     }
+
+    p {
+        font-size: 1.125em;
+    }
+`;
+
+const WeekIcon = styled.div`
+    position: relative;
+    display: flex;
+    max-width: 200px;
+    flex-direction: column;
+    text-align: center;
+    background: ${mc.blueGrey[50]};
 `;
 
 const weekStyle = css`
@@ -39,7 +55,7 @@ const weekStyle = css`
     width: 100%;
     height: 30px;
     background: ${mc.pink[500]};
-    color: #fff;
+    color: ${mc.blueGrey[50]};
     text-transform: uppercase;
     line-height: 30px;
     font-weight: 800;
@@ -52,15 +68,27 @@ const weekNumber = css`
     line-height: 1;
     font-weight: 800;
     color: ${mc.pink[500]};
-    padding: 0.375em 0;
+    padding: 0.375em 2rem;
 `;
+
+/**
+ * Funtion to prevent default behaviour when click an A tag.
+ * Takes in an event (e) and a string (slug)
+ */
+function goToPage(e, slug) {
+    if (e.target.tagName === 'A') {
+        e.preventDefault();
+    } else {
+        navigateTo(slug);
+    }
+}
 
 const PostExcerpt = (props) => {
     const {
-        tags, date, path, title, category, excerpt, published, cover,
+        tags, date, path, title, excerpt, published,
     } = props.postInfo;
     return (
-        <Article style={{ margin: '40px 0', paddingBottom: 20, borderBottom: '1px solid #999' }}>
+        <Article onClick={e => goToPage(e, path)}>
             <WeekIcon>
                 <span className={weekStyle}>Week</span>
                 <span className={weekNumber}>01</span>
