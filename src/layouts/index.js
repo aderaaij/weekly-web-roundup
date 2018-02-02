@@ -1,12 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Link from 'gatsby-link';
 import { injectGlobal } from 'emotion';
-
+import mc from 'material-colors';
 import 'normalize.css';
-import config from '../../site-config/';
-import Head from '../components/Head/Head';
 
+import Head from '../components/Head/Head';
 import { fontScheme, colorScheme } from '../helpers/style';
 
 injectGlobal`
@@ -18,9 +16,10 @@ injectGlobal`
         font-family: ${fontScheme.headings};
         background: white;
         border-top: 6px solid ${colorScheme.support}
+        color: ${mc.blueGrey[800]};
     }
     
-    h1,h2,h3,h4,h5,h6 {
+    h1, h2, h3, h4, h5, h6 {
         font-family: ${fontScheme.headings};
         font-weight: 900;
         letter-spacing: -0.5px;
