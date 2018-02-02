@@ -63,7 +63,7 @@ const homeLogoTween = logo =>
                 ease: easing.easeInOut,
             });
             logoTween.start({
-                update: (v) => {
+                update: v => {
                     pathStyler.set(v);
                 },
                 complete: () => {
@@ -76,16 +76,19 @@ const homeLogoTween = logo =>
         }
     });
 
-const homeTitlesTween = (heroTitleWrap) => {
+const homeTitlesTween = heroTitleWrap => {
     const titles = Array.from(heroTitleWrap.childNodes).map(styler);
-    const animations = Array(titles.length).fill(tween({
+    const animations = Array(titles.length).fill(
+        tween({
             from: { opacity: 0, y: 50 },
             to: { opacity: 1, y: 0 },
             ease: easing.backOut,
-        }),);
+        })
+    );
     const anim = () => {
         stagger(animations, 300).start(v =>
-            v.forEach((x, i) => titles[i].set(x)),);
+            v.forEach((x, i) => titles[i].set(x))
+        );
     };
     return anim;
 };
@@ -105,7 +108,7 @@ class HomeHero extends Component {
                         width="150"
                         xmlnsXlink="http://www.w3.org/2000/svg"
                         viewBox="0 0 79 79.09"
-                        ref={(heroLogo) => {
+                        ref={heroLogo => {
                             this.heroLogo = heroLogo;
                         }}
                     >
@@ -121,7 +124,7 @@ class HomeHero extends Component {
                     </svg>
                     <div
                         className={heroTitleWrapStyle}
-                        ref={(heroTitleWrap) => {
+                        ref={heroTitleWrap => {
                             this.heroTitleWrap = heroTitleWrap;
                         }}
                     >

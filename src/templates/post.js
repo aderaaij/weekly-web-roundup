@@ -11,8 +11,7 @@ const Container = styled.section`
     grid-template-columns: repeat(6, 1fr);
 `;
 
-
-const BlogPost = (props) => {
+const BlogPost = props => {
     const { markdownRemark } = props.data;
     const { frontmatter, html } = markdownRemark;
     const { published } = frontmatter;
@@ -20,11 +19,11 @@ const BlogPost = (props) => {
         <article>
             <Container>
                 <SEO type="post" post={markdownRemark} />
-                {!published &&
-                <Helmet>
-                    <meta name="robots" content="noindex" />
-                </Helmet>
-                }
+                {!published && (
+                    <Helmet>
+                        <meta name="robots" content="noindex" />
+                    </Helmet>
+                )}
                 <h1>{frontmatter.title}</h1>
                 {/* <Img sizes={frontmatter.cover.childImageSharp.sizes} /> */}
                 <div dangerouslySetInnerHTML={{ __html: html }} />
