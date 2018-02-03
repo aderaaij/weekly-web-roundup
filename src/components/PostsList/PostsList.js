@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'react-emotion';
 import mc from 'material-colors';
@@ -8,7 +8,7 @@ import PostExcerpt from '../PostExcerpt/PostExcerpt';
 const ListWrap = styled.section`
     grid-column-start: 2;
     grid-column-end: 6;
-    display: none;
+    opacity: ${props => (props.subscribeLoaded ? 1 : 0)};
 `;
 
 const Header = styled.h2`
@@ -21,7 +21,7 @@ const Header = styled.h2`
     line-height: 1;
 `;
 
-class PostsList extends React.Component {
+class PostsList extends Component {
     getPostList() {
         const postList = [];
         const { edges } = this.props;
@@ -58,7 +58,7 @@ class PostsList extends React.Component {
 
     render() {
         return (
-            <ListWrap>
+            <ListWrap subscribeLoaded={this.props.subscribeLoaded}>
                 <Header>2018</Header>
                 {this.renderPostExcerpt()}
             </ListWrap>
@@ -68,6 +68,7 @@ class PostsList extends React.Component {
 
 PostsList.propTypes = {
     edges: PropTypes.array.isRequired,
+    subscribeLoaded: PropTypes.bool.isRequired,
 };
 
 export default PostsList;
