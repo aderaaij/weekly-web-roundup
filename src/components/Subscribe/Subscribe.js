@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'react-emotion';
-import { spring, svg, stagger } from 'popmotion';
+import { css } from 'emotion';
+import { spring, svg, tween, easing, stagger, styler } from 'popmotion';
 
 import SubscribeForm from './SubscribeForm';
 
-const SubscribeWrap = styled.section`
+const subscribeWrapStyles = css`
     grid-column-start: 2;
     grid-column-end: 6;
     background: #fff;
@@ -14,8 +15,7 @@ const SubscribeWrap = styled.section`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: all 1s cubic-bezier(0.25, 0.8, 0.25, 1);
-    opacity: ${props => (props.heroLoaded ? 1 : 0)};
+    opacity: 0;
 `;
 
 const SubscribeRSS = styled.div`
@@ -39,6 +39,13 @@ const SubscribeRSS = styled.div`
     }
 `;
 
+const subscribeFadeIn = tween({
+    from: { opacity: 0, scale: 0.75 },
+    to: { opacity: 1, scale: 1 },
+    duration: 400,
+    ease: easing.backOut,
+});
+
 const iconRSSTween = icon => {
     const paths = Array.from(icon.children).map(svg);
 
@@ -58,12 +65,25 @@ const iconRSSTween = icon => {
 };
 
 export default class Subscribe extends Component {
-    componentDidUpdate() {
-        iconRSSTween(this.iconRSS);
+    componentDidMount() {
+        styler(this.subscribeWrap).set({ opacity: 0, scale: 0.8 });
     }
+
+    componentDidUpdate() {
+        subscribeFadeIn.start({
+            update: x => styler(this.subscribeWrap).set(x),
+            complete: () => iconRSSTween(this.iconRSS),
+        });
+    }
+
     render() {
         return (
-            <SubscribeWrap heroLoaded={this.props.heroLoaded}>
+            <div
+                className={subscribeWrapStyles}
+                ref={subscribeWrap => {
+                    this.subscribeWrap = subscribeWrap;
+                }}
+            >
                 <SubscribeRSS>
                     <div>
                         <p>
@@ -90,11 +110,7 @@ export default class Subscribe extends Component {
                     </div>
                 </SubscribeRSS>
                 <SubscribeForm />
-            </SubscribeWrap>
+            </div>
         );
     }
 }
-
-Subscribe.propTypes = {
-    heroLoaded: PropTypes.bool.isRequired,
-};
