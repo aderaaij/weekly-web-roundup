@@ -6,14 +6,18 @@ import PostsList from '../components/PostsList/PostsList';
 import config from '../../site-config';
 import '../graphql/archive';
 
-const CategoryTemplate = (props) => {
+const CategoryTemplate = props => {
     const { edges } = props.data.allMarkdownRemark;
     const { category } = props.pathContext;
     return (
         <div>
             <SEO />
             <Helmet>
-                <title>{`Posts in category '${category}'  | ${config.meta.siteName}`}</title>
+                <title>
+                    {`Posts in category '${category}'  | ${
+                        config.meta.siteName
+                    }`}
+                </title>
                 <link rel="canonical" href={`${config.siteUrl}/about/`} />
             </Helmet>
             <PostsList edges={edges} />
@@ -38,7 +42,7 @@ export const query = graphql`
             totalCount
             edges {
                 node {
-                   ...defaultArchiveQuery
+                    ...defaultArchiveQuery
                 }
             }
         }

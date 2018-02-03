@@ -6,14 +6,16 @@ import PostsList from '../components/PostsList/PostsList';
 import config from '../../site-config';
 import '../graphql/archive';
 
-const TagTemplate = (props) => {
+const TagTemplate = props => {
     const { edges } = props.data.allMarkdownRemark;
     const { tag } = props.pathContext;
     return (
         <div>
             <SEO />
             <Helmet>
-                <title>{`Posts tagged with '${tag}'  | ${config.meta.siteName}`}</title>
+                <title>
+                    {`Posts tagged with '${tag}'  | ${config.meta.siteName}`}
+                </title>
                 <link rel="canonical" href={`${config.siteUrl}/about/`} />
             </Helmet>
             <PostsList edges={edges} />
