@@ -17,6 +17,7 @@ class Home extends Component {
         super(props);
         this.state = {
             heroLoaded: false,
+            subscribeLoaded: false,
         };
     }
 
@@ -28,18 +29,30 @@ class Home extends Component {
         });
     };
 
+    onSubscribeComplete = () => {
+        this.setState({
+            subscribeLoaded: true,
+        });
+    };
+
     render() {
         const { edges } = this.props.data.allMarkdownRemark;
-        const { heroLoaded } = this.state;
+        const { heroLoaded, subscribeLoaded } = this.state;
         return (
             <div>
                 <SEO />
                 <HomeHero onHeaderComplete={this.onHeaderComplete} />
                 <Container>
-                    <Subscribe heroLoaded={heroLoaded} />
+                    <Subscribe
+                        onSubscribeComplete={this.onSubscribeComplete}
+                        heroLoaded={heroLoaded}
+                    />
                 </Container>
                 <Container>
-                    <PostsList edges={edges} />
+                    <PostsList
+                        subscribeLoaded={subscribeLoaded}
+                        edges={edges}
+                    />
                 </Container>
             </div>
         );
